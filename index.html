@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘仪录 · CoC 角色卡工坊</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23d68f3e' stroke-width='2'%3E%3Ccircle cx='32' cy='32' r='22'/%3E%3Cpath d='M32%2010v12m0%2020v12M10%2032h12m20%200h12M18%2018l8%208m10%2010%2010%2010M18%2046l8-8m10-10%2010-10'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='4' fill='%23f1c27d'/%3E%3C/svg%3E">
+    <meta name="theme-color" content="#070b16">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #070b16;
+            --bg-mid: rgba(17, 22, 37, 0.8);
+            --bg-soft: rgba(25, 32, 50, 0.7);
+            --accent: #d68f3e;
+            --accent-strong: #f1c27d;
+            --highlight: #6d9dc5;
+            --text-primary: #e6e1d8;
+            --text-muted: #b8b0a5;
+            --border-glow: rgba(198, 140, 82, 0.4);
+            --card-border: rgba(129, 148, 197, 0.45);
+            --shadow-strong: rgba(0, 0, 0, 0.55);
+        }
+
+        body {
+            font-family: 'Cardo', 'Noto Serif SC', serif;
+            background: radial-gradient(circle at 20% 20%, rgba(63, 94, 251, 0.08), transparent 45%), radial-gradient(circle at 80% 10%, rgba(252, 70, 107, 0.12), transparent 50%), radial-gradient(circle at 50% 80%, rgba(112, 244, 174, 0.1), transparent 55%), var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::before {
+            background: radial-gradient(circle at 30% 30%, rgba(109, 157, 197, 0.25), transparent 55%), radial-gradient(circle at 70% 60%, rgba(214, 143, 62, 0.18), transparent 60%);
+            opacity: 0.4;
+            animation: aurora 28s linear infinite alternate;
+        }
+
+        body::after {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mix-blend-mode: screen;
+            opacity: 0.35;
+        }
+
+        .background-sigil {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background-image:
+                radial-gradient(circle at center, rgba(214, 143, 62, 0.32) 0%, rgba(214, 143, 62, 0.08) 38%, transparent 68%),
+                url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%20400%20400%27%3E%3Cg%20fill=%27none%27%20stroke=%27%23d68f3e%27%20stroke-width=%274%27%20opacity=%270.55%27%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27160%27/%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%27110%27/%3E%3Cpath%20d=%27M200%2040L330%20320H70L200%2040z%27/%3E%3Cpath%20d=%27M200%20360L280%20200L120%20200L200%20360z%27/%3E%3Cpath%20d=%27M40%20200H360%27/%3E%3Cpath%20d=%27M200%2040V360%27/%3E%3C/g%3E%3Ccircle%20cx=%27200%27%20cy=%27200%27%20r=%2718%27%20fill=%27%23f1c27d%27%20opacity=%270.7%27/%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: center 12%, center;
+            background-size: min(78vw, 720px), min(54vw, 520px);
+            mix-blend-mode: screen;
+            opacity: 0.45;
+        }
+
+        .background-sigil::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(135deg, rgba(241, 194, 125, 0.028) 0, rgba(241, 194, 125, 0.028) 28px, transparent 28px, transparent 56px),
+                repeating-linear-gradient(45deg, rgba(109, 157, 197, 0.035) 0, rgba(109, 157, 197, 0.035) 22px, transparent 22px, transparent 44px);
+            opacity: 0.45;
+            mix-blend-mode: soft-light;
+        }
+
+        @keyframes aurora {
+            0% {
+                transform: translate(-2%, -2%) scale(1.05);
+            }
+            100% {
+                transform: translate(2%, 2%) scale(1);
+            }
+        }
+
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(160deg, rgba(13, 18, 32, 0.85), rgba(15, 21, 36, 0.75));
+            border-radius: 20px;
+            box-shadow: 0 20px 60px var(--shadow-strong), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .container::before {
+            border: 1px solid rgba(214, 143, 62, 0.25);
+            opacity: 0.35;
+        }
+
+        .container::after {
+            filter: blur(22px);
+            background: radial-gradient(circle at 50% -10%, rgba(214, 143, 62, 0.25), transparent 50%), radial-gradient(circle at 90% 15%, rgba(109, 157, 197, 0.22), transparent 45%);
+            opacity: 0.35;
+        }
+
+        .container-veil {
+            position: absolute;
+            inset: 1px;
+            background: repeating-linear-gradient(120deg, transparent 0, transparent 18px, rgba(255, 255, 255, 0.025) 18px, rgba(255, 255, 255, 0.025) 19px);
+            border-radius: 20px;
+            mix-blend-mode: screen;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            position: relative;
+            background: linear-gradient(145deg, rgba(9, 14, 26, 0.95), rgba(19, 24, 39, 0.75));
+            padding: 40px 30px 35px;
+            text-align: center;
+            border-bottom: 1px solid rgba(214, 143, 62, 0.25);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .header::before,
+        .header::after {
+            content: '';
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .header::before {
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(214, 143, 62, 0.18), transparent 60%);
+            opacity: 0.7;
+        }
+
+        .header::after {
+            width: 140px;
+            height: 140px;
+            border: 1px solid rgba(214, 143, 62, 0.35);
+            border-radius: 50%;
+            top: -40px;
+            right: calc(50% - 70px);
+            box-shadow: 0 0 40px rgba(214, 143, 62, 0.25);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.75;
+            }
+        }
+
+        .header h1 {
+            position: relative;
+            color: var(--accent-strong);
+            font-family: 'Cinzel', 'Songti SC', serif;
+            font-size: 2.8em;
+            letter-spacing: 0.12em;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            text-shadow: 0 0 25px rgba(214, 143, 62, 0.35), 0 6px 12px rgba(0, 0, 0, 0.45);
+        }
+
+        .header h1::after {
+            content: '';
+            display: block;
+            width: 180px;
+            height: 1px;
+            margin: 16px auto 0;
+            background: linear-gradient(90deg, transparent, rgba(214, 143, 62, 0.85), transparent);
+            box-shadow: 0 0 18px rgba(214, 143, 62, 0.45);
+        }
+
+        .header p {
+            position: relative;
+            color: var(--text-muted);
+            font-size: 1.15em;
+            letter-spacing: 0.08em;
+        }
+
+        .header-glyph {
+            position: relative;
+            margin-top: 20px;
+            color: rgba(214, 143, 62, 0.65);
+            letter-spacing: 0.6em;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+        }
+
+        .main-content {
+            position: relative;
+            padding: 35px;
+            z-index: 1;
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(109, 157, 197, 0.2);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .archetype-selection {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .archetype-selection h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-strong);
+            margin-bottom: 20px;
+            font-size: 1.9em;
+            letter-spacing: 0.16em;
+        }
+
+        .archetype-selection h2::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 1px;
+            margin: 14px auto 0;
+            background: linear-gradient(90deg, transparent, rgba(109, 157, 197, 0.8), transparent);
+            box-shadow: 0 0 12px rgba(109, 157, 197, 0.35);
+        }
+
+        .archetype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .archetype-card {
+            position: relative;
+            background: linear-gradient(150deg, rgba(19, 26, 43, 0.78), rgba(22, 32, 53, 0.92));
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 22px 20px;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .archetype-card::before {
+            content: '';
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle, rgba(214, 143, 62, 0.18) 0, transparent 65%);
+            transform: scale(0);
+            transition: transform 0.35s ease;
+            opacity: 0;
+        }
+
+        .archetype-card::after {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border-radius: 9px;
+            border: 1px solid rgba(109, 157, 197, 0.35);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .archetype-card:hover::before {
+            transform: scale(1);
+            opacity: 0.9;
+        }
+
+        .archetype-card:hover::after,
+        .archetype-card.selected::after {
+            opacity: 0.9;
+        }
+
+        .archetype-card:hover {
+            border-color: rgba(214, 143, 62, 0.55);
+            box-shadow: 0 12px 35px rgba(214, 143, 62, 0.18);
+            transform: translateY(-4px);
+        }
+
+        .archetype-card.selected {
+            border-color: rgba(214, 143, 62, 0.9);
+            background: linear-gradient(150deg, rgba(35, 27, 44, 0.9), rgba(56, 32, 46, 0.9));
+            color: #f8f1e2;
+            box-shadow: 0 18px 45px rgba(214, 143, 62, 0.25);
+        }
+
+        .archetype-card.selected::before {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .archetype-card h3 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+            letter-spacing: 0.1em;
+        }
+
+        .archetype-card .attributes {
+            font-size: 0.95em;
+            opacity: 0.85;
+            letter-spacing: 0.05em;
+        }
+
+        .character-editor {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .character-editor.active {
+            display: grid;
+        }
+
+        .section {
+            position: relative;
+            background: var(--bg-mid);
+            border-radius: 14px;
+            padding: 28px 25px;
+            border: 1px solid rgba(129, 148, 197, 0.25);
+            box-shadow: inset 0 0 20px rgba(10, 14, 25, 0.6);
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: 12px;
+            border: 1px solid rgba(214, 143, 62, 0.18);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            inset: 14px;
+            border-radius: 10px;
+            border: 1px dashed rgba(109, 157, 197, 0.25);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .section h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-strong);
+            margin-bottom: 22px;
+            font-size: 1.5em;
+            letter-spacing: 0.12em;
+            border-bottom: 1px solid rgba(214, 143, 62, 0.25);
+            padding-bottom: 12px;
+        }
+
+        .section h3::after {
+            content: '';
+            display: block;
+            margin-top: 10px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(214, 143, 62, 0.6), transparent);
+        }
+
+        .section h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--highlight);
+            margin-bottom: 16px;
+            font-size: 1.1em;
+            letter-spacing: 0.08em;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(129, 148, 197, 0.35);
+            border-radius: 8px;
+            background: linear-gradient(120deg, rgba(8, 12, 24, 0.9), rgba(18, 26, 41, 0.7));
+            color: var(--text-primary);
+            font-size: 0.95em;
+            letter-spacing: 0.03em;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.35);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(214, 143, 62, 0.75);
+            box-shadow: 0 0 25px rgba(214, 143, 62, 0.35), inset 0 0 10px rgba(214, 143, 62, 0.2);
+        }
+
+        .skill-points-counter {
+            position: relative;
+            background: linear-gradient(135deg, rgba(35, 27, 44, 0.85), rgba(56, 45, 66, 0.9));
+            color: #f8f1e2;
+            padding: 18px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.2em;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            border: 1px solid rgba(214, 143, 62, 0.35);
+            box-shadow: 0 12px 35px rgba(35, 27, 44, 0.45);
+        }
+
+        .skill-points-counter::after {
+            content: '✧';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 18px;
+            color: rgba(241, 194, 125, 0.6);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: linear-gradient(160deg, rgba(17, 23, 39, 0.85), rgba(22, 30, 50, 0.9));
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid rgba(109, 157, 197, 0.4);
+            box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-category h4 {
+            color: var(--accent-strong);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            text-align: center;
+            letter-spacing: 0.08em;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 6px 6px 6px 10px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(214, 143, 62, 0.08);
+        }
+
+        .skill-item.specialty {
+            background: rgba(214, 143, 62, 0.18);
+            border: 1px solid rgba(214, 143, 62, 0.35);
+            box-shadow: 0 0 12px rgba(214, 143, 62, 0.25);
+        }
+
+        .skill-item label {
+            flex: 1;
+            margin-right: 12px;
+            font-size: 0.95em;
+            letter-spacing: 0.04em;
+        }
+
+        .skill-item.specialty label::after {
+            content: ' ★';
+            color: var(--accent-strong);
+        }
+
+        .skill-item input {
+            width: 64px;
+            padding: 4px 6px;
+            border: 1px solid rgba(129, 148, 197, 0.6);
+            border-radius: 5px;
+            background: rgba(8, 12, 24, 0.7);
+            color: var(--text-primary);
+            text-align: center;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .skill-item input:focus {
+            border-color: rgba(214, 143, 62, 0.75);
+            box-shadow: 0 0 12px rgba(214, 143, 62, 0.3);
+            outline: none;
+        }
+
+        .background-section {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .background-question {
+            margin-bottom: 22px;
+            padding: 18px;
+            background: linear-gradient(145deg, rgba(16, 22, 36, 0.85), rgba(29, 36, 54, 0.75));
+            border-radius: 12px;
+            border: 1px solid rgba(109, 157, 197, 0.35);
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .background-question h4 {
+            color: var(--highlight);
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            letter-spacing: 0.05em;
+        }
+
+        .background-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .background-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .background-option:hover {
+            background: rgba(214, 143, 62, 0.12);
+            transform: translateX(6px);
+        }
+
+        .background-option input[type='radio'] {
+            margin-right: 12px;
+            accent-color: var(--accent);
+        }
+
+        .background-option label {
+            cursor: pointer;
+            font-size: 0.95em;
+            line-height: 1.4;
+            letter-spacing: 0.03em;
+        }
+
+        .export-section {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            position: relative;
+            background: linear-gradient(130deg, rgba(214, 143, 62, 0.95), rgba(109, 157, 197, 0.9));
+            color: #120d1f;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 999px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 14px 40px rgba(214, 143, 62, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 18px 45px rgba(109, 157, 197, 0.35);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:disabled {
+            background: linear-gradient(135deg, rgba(80, 80, 96, 0.8), rgba(50, 50, 64, 0.8));
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .error {
+            color: #e96e6e;
+            font-size: 0.85em;
+            margin-top: 6px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 1024px) {
+            .character-editor {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .main-content {
+                padding: 24px;
+            }
+
+            .main-content::before {
+                inset: 12px;
+            }
+
+            .archetype-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(12, 18, 32, 0.6);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(214, 143, 62, 0.8), rgba(109, 157, 197, 0.8));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(214, 143, 62, 1), rgba(109, 157, 197, 1));
+        }
+    </style>
+</head>
+<body>
+    <div class="background-sigil" aria-hidden="true"></div>
+    <div class="container">
+        <div class="container-veil" aria-hidden="true"></div>
+        <div class="header">
+            <h1>CoC 跑团角色卡生成器</h1>
+            <p>创建您的克苏鲁神话角色</p>
+            <div class="header-glyph" aria-hidden="true">✶ Ϟ ✧ ϟ ✶</div>
+        </div>
+
+        <div class="main-content">
+            <!-- 原型选择区域 -->
+            <div class="archetype-selection" id="archetypeSelection">
+                <h2>选择角色原型</h2>
+                <div class="archetype-grid" id="archetypeGrid">
+                    <!-- 原型卡片将由JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 角色编辑器 -->
+            <div class="character-editor" id="characterEditor">
+                <!-- 基本信息 -->
+                <div class="section">
+                    <h3>基本信息</h3>
+                    <div class="form-group">
+                        <label for="firstName">姓名</label>
+                        <input type="text" id="firstName" placeholder="输入名字">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">姓氏</label>
+                        <input type="text" id="lastName" placeholder="输入姓氏">
+                    </div>
+                    <div class="form-group">
+                        <label for="appearance">外貌描述</label>
+                        <textarea id="appearance" rows="4" placeholder="描述角色的外貌特征"></textarea>
+                    </div>
+                </div>
+
+                <!-- 属性区域 -->
+                <div class="section">
+                    <h3>角色属性</h3>
+                    <div class="form-group">
+                        <label>体魄</label>
+                        <input type="number" id="physique" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>敏捷</label>
+                        <input type="number" id="agility" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>智力</label>
+                        <input type="number" id="intellect" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>决心</label>
+                        <input type="number" id="resolve" readonly>
+                    </div>
+                    <h4 style="color: var(--highlight); margin: 20px 0 10px 0;">神秘学属性</h4>
+                    <div class="form-group">
+                        <label>痴迷</label>
+                        <input type="number" id="obsession" value="0" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>恐惧</label>
+                        <input type="number" id="fear" value="0" readonly>
+                    </div>
+                </div>
+
+                <!-- 技能区域 -->
+                <div class="section full-width">
+                    <h3>技能分配</h3>
+                    <div class="skill-points-counter">
+                        剩余技能点: <span id="remainingPoints">400</span>
+                    </div>
+                    <div class="skills-grid" id="skillsGrid">
+                        <!-- 技能分类将由JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 背景故事区域 -->
+                <div class="section full-width">
+                    <h3>背景故事</h3>
+                    <div class="background-section" id="backgroundSection">
+                        <!-- 背景问题将由JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 导出区域 -->
+                <div class="export-section">
+                    <button class="btn" id="exportBtn" onclick="exportCharacter()">保存并导出JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 角色原型数据
+        const archetypes = {
+            "有志青年": {
+                attributes: { physique: 30, agility: 50, intellect: 80, resolve: 50 },
+                presetSkills: { "阅历": 60, "法语": 60 },
+                specialties: ["神秘学", "阅历", "法语"],
+                background: {
+                    "你的父亲": ["是一位外交官", "是贵族", "正写着他有关比较神话学的巨著", "对生活充满失望"],
+                    "你的母亲": ["因病不能自理", "是小有名气的优秀画家", "一直想让你多吃点", "后悔她嫁了你的父亲"],
+                    "童年时代的你": ["戴着眼镜，性格古怪", "是音乐神童", "经常做反复无常的噩梦", "容易陷入一阵忧郁"],
+                    "你就学于": ["牛津", "剑桥", "索邦(巴黎大学)", "维滕贝格"],
+                    "你最亲密的朋友是": ["珀西·福斯特·路易斯,你的同学", "薇薇安·西尔福顿,在本地书店遇见", "瓦伦丁,你养的花猫", "咖啡"],
+                    "你最怕": ["发疯", "在看完想看的书之前死去", "被活埋", "蛇"],
+                    "你现在": ["又穷又饿", "是个薪水低的文职", "部分翻译了一本鲜为人知且有可能非法的意大利文手稿"],
+                    "你最喜欢的消遣是": ["深夜里辩论人类灵魂的本质", "国际象棋和便宜葡萄酒", "阅读深奥又龌龊的法国哲学"],
+                    "你最喜欢的书是": ["《恶之华》", "《夜游漫记》", "《浮士德博士》", "《道林格雷的画像》", "你室友的\"秘密\"日记"],
+                    "你的座右铭是": ["\"与其咒骂黑暗,不如点亮蜡烛。\"", "\"笔比剑更强大。\"", "\"我们都在阴沟里,但有些人在仰望星空。\""]
+                }
+            },
+            "富家子弟": {
+                attributes: { physique: 60, agility: 60, intellect: 40, resolve: 50 },
+                presetSkills: { "花言巧语": 60, "谈判": 60, "射击": 60 },
+                specialties: ["融入", "谈判", "斗殴"],
+                background: {
+                    "你的纹章是": ["\"Lilium Interspinas\"(荆棘丛中的兰花)", "\"Noli Irritate Leonem\"(别唤醒雄狮)", "\"Je m'en souvien-dray\"(吾将铭记)"],
+                    "你的父亲": ["是骑士", "是准男爵", "是勋爵", "是伯爵", "常常醉酒"],
+                    "你的母亲": ["是贵族小姐", "是女爵士", "结了四次婚", "臭名昭著"],
+                    "童年时代的你": ["被送去寄宿学校", "由互惠生格鲁斯戴尔小姐照顾", "时髦地被疏于照顾"],
+                    "你就读于": ["牛津", "剑桥"],
+                    "你最亲密的朋友是": ["来自第欧根尼俱乐部的伊格内修斯·沃特金斯", "西尔万希尔达·米尔福顿,小学同学", "蛋蛋,家里的八哥犬", "一瓶1811年的骑士蒙哈榭"],
+                    "你最怕": ["歌剧院", "你的债主发现你在伦敦的住址", "被写出遗嘱"],
+                    "你现在": ["陷入爱河", "失恋了", "结了婚", "离了婚", "丧偶", "心里弥漫着对爱的倦怠感", "特别想吃英式麦芬"],
+                    "你最喜欢的消遣是": ["在切威尔河上撑船", "在俱乐部里寻欢作乐", "在宿醉之前发生的所有事"],
+                    "你的座右铭是": ["\"礼节造就人品。\"", "\"家庭第一。\"", "\"万事皆适度,包括适度本身。\""]
+                }
+            },
+            "舞者": {
+                attributes: { physique: 70, agility: 80, intellect: 30, resolve: 30 },
+                presetSkills: { "融入": 60, "演技": 60 },
+                specialties: ["诱惑", "融入", "演技"],
+                background: {
+                    "你的父亲": ["是马戏团长", "是画家", "是革命分子", "破产了"],
+                    "你的母亲": ["是马戏团的杂技演员", "是演员", "鸦片上瘾了", "在教堂的小册子里被用作警示性例子"],
+                    "你在童年时代": ["是十一个兄弟姐妹之一", "患了痨病", "对生日礼物的要求非常精细", "是个笨拙的小胖仔"],
+                    "评论家说你": ["美丽", "不道德", "前卫", "急迫地需要休假", "被浪费在我的观众上"],
+                    "表演之后,你": ["阅读今晚的贺卡和情书", "用一两支黑猫香烟放松一下", "和剧团的其他成员一起喝个烂醉"],
+                    "你最亲密的朋友是": ["埃弗拉伊姆·比格斯,伦敦最小的大力士", "麦茜·霍普莱特,唱诗班女孩", "小怒,你养的猩红色金刚鹦鹉"],
+                    "你最怕": ["变老", "差评", "食物中毒", "被熊咬死"],
+                    "你现在": ["正寻找赞助人", "不敢相信自己穿不下以前的戏服了", "革新着你的公众形象"],
+                    "你最喜欢的消遣是": ["唱片机上放着爵士乐,手里一杯威士忌酸", "去动物园", "在时髦派对上闪亮登场,理想情况下闹出大场面来"],
+                    "你的座右铭是": ["\"生命虽短,艺术永存。\"", "\"没有太讲究的衣着,也没有太深入的教育。\"", "\"好朋友永远会在正面捅你。\""]
+                }
+            },
+            "警探": {
+                attributes: { physique: 60, agility: 50, intellect: 70, resolve: 30 },
+                presetSkills: { "斗殴": 60, "射击": 60, "追踪": 60 },
+                specialties: ["融入", "射击", "追踪"],
+                background: {
+                    "你的父亲": ["是蔬果贩", "是机修工", "喜欢写信给本地报社", "不可动摇"],
+                    "你的母亲": ["是贵族夫人的侍女", "因病不能自理", "完全是个负担", "不可阻拦"],
+                    "童年时代的你": ["天天打架", "是那种会在口袋里揣着青蛙回家的小孩", "有一次在动物园里被落下了"],
+                    "你的名气来自": ["运用逻辑推理的侦探工作", "迅捷敏锐的思维", "坚韧不拔的精神", "原则上对人本性的不信任"],
+                    "罪犯应该": ["被清除", "有重新做人的机会", "庆幸他们不再会被送去澳大利亚"],
+                    "你最亲密的朋友是": ["海帕提乌斯·克郎姆警员,来自伦敦警察厅", "艾美琳·南丁格尔,平克顿雇员", "阿尔伯特,你养得非常棒的德国牧羊犬"],
+                    "你最怕": ["犯罪集团", "怀恨在心的出逃囚徒", "文书", "埃及,不过我肯定永远不会去那"],
+                    "你现在": ["正处理着什么问题", "想要安定下来", "好想吃卡仕达奶油"],
+                    "你最喜欢的消遣是": ["伦敦新闻画报上的填字游戏", "培育获奖的西葫芦", "无人打扰时吸烟斗"],
+                    "你的座右铭是": ["\"怀疑一切。\"", "\"你的敌人犯错时永远不要中断他们\"", "\"不是我开的马戏团,也不是我养的猴子。\""]
+                }
+            },
+            "流亡者": {
+                attributes: { physique: 50, agility: 60, intellect: 30, resolve: 70 },
+                presetSkills: { "窃贼": 60, "斗殴": 60, "追踪": 60 },
+                specialties: ["窃贼", "斗殴", "追踪"],
+                background: {
+                    "你的父亲": ["应该死了", "几乎肯定是死了", "在蹲监狱", "没有名字、来历不明"],
+                    "你的母亲": ["应该死了", "几乎肯定是死了", "在蹲监狱", "复婚了并想金盆洗手"],
+                    "你的另一个\"家庭\"": ["无处不在", "无人不惧", "对你真的非常恼怒"],
+                    "童年时代的你": ["是个成功的扒手", "每天能活着就算幸运了", "对犯罪学家富有吸引力", "是自由的"],
+                    "犯罪": ["有好处", "没好处"],
+                    "你最亲密的朋友是": ["理发师祖菲亚", "面包师多明尼卡丝", "走私犯乔治欧", "你可靠的小刀"],
+                    "你最怕": ["法律那无处不及的长臂", "你犯罪同伙们那更短,但更血淋淋的手臂", "醒来时发现自己死了"],
+                    "你现在": ["在逃亡的途中", "想要金盆洗手", "执着于宿仇", "醉了", "不可解释地来到了亚历山大港"],
+                    "你最喜欢的消遣是": ["赌场和香槟", "双陆棋和雪茄", "高风险的骗局", "不被杀死"],
+                    "你的座右铭是": ["\"若你觉得自己身处地狱,那就继续走下去。\"", "\"好事没好报。\"", "\"最好的报复就是好好活着。\""]
+                }
+            },
+            "灵媒": {
+                attributes: { physique: 30, agility: 70, intellect: 60, resolve: 50 },
+                presetSkills: { "花言巧语": 60, "演技": 60, "明术": 60 },
+                specialties: ["花言巧语", "演技", "明术"],
+                background: {
+                    "你的父亲": ["是宗教治愈师", "是骗子", "在蹲监狱", "死了"],
+                    "你的母亲": ["是占卜师", "是贵族", "一贫如洗", "死了"],
+                    "童年时代的你": ["开心", "孤单", "受幻觉侵扰", "经常发怪烧", "是学校里最受欢迎的孩子,毋庸置疑"],
+                    "评论家说你": ["是伦敦最伟大的灵媒", "更适合在小孩的生日派对上出场", "挺可疑的", "板上钉钉的骗子"],
+                    "表演之后,你": ["与热爱你的粉丝见面", "径直去票房拿报酬", "感谢你的\"灵魂向导\",以防万一"],
+                    "你最亲密的朋友是": ["赫伯特·布朗罗,你忠实的助手", "先知米瑞亚", "一套由滑轮、蜡烛和镜子组成的复杂系统", "一只鬼,大概"],
+                    "你最怕": ["空空的剧院", "唤起你无法镇压的东西", "被过于仔细地检查"],
+                    "你现在": ["想着要退休", "提供个人咨询服务", "被鬼附身了"],
+                    "你最喜欢的消遣是": ["阅读你表演的评论", "收集神秘的器物", "在圣詹姆斯公园里喂鸭子"],
+                    "你的座右铭是": ["\"万物都有裂缝,光便是这么进来的。\"", "\"真相很少纯粹,永不简单。\"", "\"拜访驴子的家时,务必别提起耳朵。\""]
+                }
+            },
+            "医师": {
+                attributes: { physique: 50, agility: 50, intellect: 70, resolve: 40 },
+                presetSkills: { "斗殴": 60, "医学": 60, "药剂师": 60 },
+                specialties: ["斗殴", "医学", "药剂师"],
+                background: {
+                    "你的父亲": ["是个政客", "是著名的外科大夫", "不可思议地健康", "为你骄傲得令人害羞"],
+                    "你的母亲": ["是个交际花", "根本上质疑科学", "是宗教治愈师", "病入膏肓", "其实是低俗浪漫文学作家"],
+                    "你在童年时代": ["完美无缺", "因化学实验被多家学校退学", "对解剖东西有奇怪的兴趣"],
+                    "你的专科是": ["传染病学", "骨伤科", "热带疾病", "草药学"],
+                    "你所属的诊所": ["蒸蒸日上", "奄奄一息", "在哈利街的一块需求极高的地皮上", "陷入层层丑闻之中"],
+                    "你最亲密的朋友是": ["多利安·英扫,医学院的同学", "芙洛拉·古德温,本地的验尸官", "鸦片酊", "你的口袋版《罗伯特·路易斯·史蒂文森全集》"],
+                    "你最怕": ["霍乱疫情爆发", "安定下来", "迷失在海上", "血"],
+                    "你现在": ["寻找着爱情", "刚离婚", "厌世", "因自己的上一篇专著成了名"],
+                    "你最喜欢的消遣是": ["和你的同事一起在雅典娜神庙俱乐部里作乐", "在交易所里赌点小钱", "养蜂"],
+                    "你的座右铭是": ["\"不作恶。\"", "\"今日的痛楚是明日的力量。\"", "\"说真话,但说完就得走。\""]
+                }
+            },
+            "教士": {
+                attributes: { physique: 30, agility: 50, intellect: 70, resolve: 60 },
+                presetSkills: { "融入": 60, "演技": 60, "希腊语": 60 },
+                specialties: ["融入", "演技", "希腊语"],
+                background: {
+                    "你的父亲": ["是主教", "是恶棍", "是贵族", "对你的职业选择表示失望"],
+                    "你的母亲": ["是声望不错的好女人", "声名狼藉", "是才女", "目前毫无踪迹"],
+                    "童年时代的你": ["特别害羞", "放荡不羁", "是个书虫", "经常发作癫痫", "是神职人员犯下的罪"],
+                    "你的教堂": ["是你的家", "是用来放钱的洞", "基本上是个小木屋", "是神那古老又宏伟的殿堂"],
+                    "你的布道": ["有点长", "有关主那无声的善意", "有关地狱有多糟糕", "被浪费在你的会众上"],
+                    "你最亲密的朋友是": ["杰拉尔德·霍普金斯牧师", "艾薇·毛瑞思克修女", "基甸,你的宠物小鼠"],
+                    "你最怕": ["地狱,当然了", "神可能不存在", "蜘蛛", "被狄克森-格里菲斯夫人邀请去茶会"],
+                    "你现在": ["精心地策划着一场抽奖活动", "准备进行驱魔", "第一百次尝试理解桥牌的规则"],
+                    "你最喜欢的消遣是": ["用假蝇钓鱼", "用教堂的管风琴演奏拉格泰姆", "黑加仑利口酒和一本浪漫小说", "写不给任何人看的诗"],
+                    "你的座右铭是": ["\"每个圣人都有过去,每个罪人都有未来。\"", "\"棋下完了,王和卒都将回到同一个盒子里。\"", "\"可以向神祈祷,但自己也得向海岸划船。\""]
+                }
+            }
+        };
+
+        // 技能分类
+        const skillCategories = {
+            "社交": ["诱惑", "花言巧语", "融入", "谈判", "演技"],
+            "实用": ["爆破", "驾驶", "修理工", "园艺", "持刃战斗", "阿拉伯语", "法语", "希腊语", "水手", "医学", "药剂师", "窃贼", "斗殴", "射击", "追踪", "阅历"],
+            "神秘学": ["明术", "暗术"]
+        };
+
+        let currentArchetype = null;
+        let skillValues = {};
+        let backgroundChoices = {};
+
+        // 初始化应用
+        function initApp() {
+            renderArchetypes();
+            initializeSkills();
+        }
+
+        // 渲染原型选择
+        function renderArchetypes() {
+            const grid = document.getElementById('archetypeGrid');
+            grid.innerHTML = '';
+
+            Object.keys(archetypes).forEach(name => {
+                const archetype = archetypes[name];
+                const card = document.createElement('div');
+                card.className = 'archetype-card';
+                card.onclick = () => selectArchetype(name);
+                
+                card.innerHTML = `
+                    <h3>${name}</h3>
+                    <div class="attributes">
+                        体魄: ${archetype.attributes.physique} | 
+                        敏捷: ${archetype.attributes.agility} | 
+                        智力: ${archetype.attributes.intellect} | 
+                        决心: ${archetype.attributes.resolve}
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // 选择原型
+        function selectArchetype(name) {
+            currentArchetype = name;
+            const archetype = archetypes[name];
+
+            // 更新选中状态
+            document.querySelectorAll('.archetype-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.target.closest('.archetype-card').classList.add('selected');
+
+            // 填充属性
+            document.getElementById('physique').value = archetype.attributes.physique;
+            document.getElementById('agility').value = archetype.attributes.agility;
+            document.getElementById('intellect').value = archetype.attributes.intellect;
+            document.getElementById('resolve').value = archetype.attributes.resolve;
+
+            // 重置技能值
+            initializeSkills();
+            
+            // 设置预设技能值
+            Object.keys(archetype.presetSkills).forEach(skill => {
+                skillValues[skill] = archetype.presetSkills[skill];
+                const input = document.querySelector(`input[data-skill="${skill}"]`);
+                if (input) {
+                    input.value = archetype.presetSkills[skill];
+                }
+            });
+
+            // 渲染技能区域
+            renderSkills();
+            
+            // 渲染背景故事
+            renderBackground();
+            
+            // 更新剩余技能点
+            updateRemainingPoints();
+
+            // 显示编辑器
+            document.getElementById('characterEditor').classList.add('active');
+        }
+
+        // 初始化技能值
+        function initializeSkills() {
+            skillValues = {};
+            Object.values(skillCategories).flat().forEach(skill => {
+                skillValues[skill] = 0;
+            });
+        }
+
+        // 渲染技能区域
+        function renderSkills() {
+            const skillsGrid = document.getElementById('skillsGrid');
+            skillsGrid.innerHTML = '';
+
+            Object.keys(skillCategories).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'skill-category';
+                
+                const categoryTitle = document.createElement('h4');
+                categoryTitle.textContent = category;
+                categoryDiv.appendChild(categoryTitle);
+
+                skillCategories[category].forEach(skill => {
+                    const skillItem = document.createElement('div');
+                    skillItem.className = 'skill-item';
+                    
+                    // 检查是否为专长技能
+                    if (currentArchetype && archetypes[currentArchetype].specialties.includes(skill)) {
+                        skillItem.classList.add('specialty');
+                    }
+
+                    const label = document.createElement('label');
+                    label.textContent = skill;
+                    
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.min = '0';
+                    input.max = '80';
+                    input.value = skillValues[skill];
+                    input.dataset.skill = skill;
+                    input.oninput = (e) => updateSkill(skill, parseInt(e.target.value) || 0);
+
+                    skillItem.appendChild(label);
+                    skillItem.appendChild(input);
+                    categoryDiv.appendChild(skillItem);
+                });
+
+                skillsGrid.appendChild(categoryDiv);
+            });
+        }
+
+        // 更新技能值
+        function updateSkill(skill, value) {
+            const remainingPoints = 400 - Object.values(skillValues).reduce((sum, val) => sum + val, 0) + skillValues[skill];
+            
+            if (value > 80) {
+                alert('单个技能不能超过80点');
+                document.querySelector(`input[data-skill="${skill}"]`).value = skillValues[skill];
+                return;
+            }
+            
+            if (value > remainingPoints) {
+                alert('技能点不足');
+                document.querySelector(`input[data-skill="${skill}"]`).value = skillValues[skill];
+                return;
+            }
+
+            skillValues[skill] = value;
+            updateRemainingPoints();
+        }
+
+        // 更新剩余技能点
+        function updateRemainingPoints() {
+            const totalUsed = Object.values(skillValues).reduce((sum, val) => sum + val, 0);
+            const remaining = 400 - totalUsed;
+            document.getElementById('remainingPoints').textContent = remaining;
+        }
+
+        // 渲染背景故事
+        function renderBackground() {
+            const backgroundSection = document.getElementById('backgroundSection');
+            backgroundSection.innerHTML = '';
+
+            if (!currentArchetype) return;
+
+            const background = archetypes[currentArchetype].background;
+            
+            Object.keys(background).forEach(question => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'background-question';
+                
+                const questionTitle = document.createElement('h4');
+                questionTitle.textContent = question;
+                questionDiv.appendChild(questionTitle);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'background-options';
+
+                background[question].forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'background-option';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = question;
+                    radio.value = option;
+                    radio.id = `${question}_${index}`;
+                    radio.onchange = () => {
+                        backgroundChoices[question] = option;
+                    };
+
+                    const label = document.createElement('label');
+                    label.textContent = option;
+                    label.htmlFor = `${question}_${index}`;
+
+                    optionDiv.appendChild(radio);
+                    optionDiv.appendChild(label);
+                    optionsDiv.appendChild(optionDiv);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                backgroundSection.appendChild(questionDiv);
+            });
+        }
+
+        // 导出角色数据
+        function exportCharacter() {
+            if (!currentArchetype) {
+                alert('请先选择一个角色原型');
+                return;
+            }
+
+            const characterData = {
+                profile: {
+                    name: document.getElementById('firstName').value || '',
+                    surname: document.getElementById('lastName').value || '',
+                    appearance: document.getElementById('appearance').value || '',
+                    archetype: currentArchetype
+                },
+                attributes: archetypes[currentArchetype].attributes,
+                occult_attributes: {
+                    obsession: 0,
+                    fear: 0
+                },
+                skills: {
+                    social: {},
+                    practical: {},
+                    occult: {}
+                },
+                specialties: archetypes[currentArchetype].specialties,
+                background: backgroundChoices
+            };
+
+            // 整理技能数据
+            skillCategories["社交"].forEach(skill => {
+                characterData.skills.social[skill] = skillValues[skill];
+            });
+            skillCategories["实用"].forEach(skill => {
+                characterData.skills.practical[skill] = skillValues[skill];
+            });
+            skillCategories["神秘学"].forEach(skill => {
+                characterData.skills.occult[skill] = skillValues[skill];
+            });
+
+            // 下载JSON文件
+            const dataStr = JSON.stringify(characterData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `${characterData.profile.name || '角色'}_${currentArchetype}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
