@@ -651,6 +651,279 @@
             grid-column: 1 / -1;
         }
 
+        /* 物品栏样式 */
+        .inventory-section {
+            background: linear-gradient(160deg, rgba(17, 23, 39, 0.85), rgba(22, 30, 50, 0.9));
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(109, 157, 197, 0.35);
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .inventory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(214, 143, 62, 0.25);
+        }
+
+        .inventory-header h4 {
+            color: var(--accent-strong);
+            font-family: 'Cinzel', serif;
+            font-size: 1.3em;
+            letter-spacing: 0.08em;
+            margin: 0;
+        }
+
+        .btn-add-item {
+            background: linear-gradient(130deg, rgba(214, 143, 62, 0.9), rgba(109, 157, 197, 0.8));
+            color: #120d1f;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 6px 20px rgba(214, 143, 62, 0.25);
+        }
+
+        .btn-add-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(214, 143, 62, 0.35);
+        }
+
+        .add-icon {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .inventory-list {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .inventory-header-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 12px;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(214, 143, 62, 0.15), rgba(109, 157, 197, 0.15));
+            border: 1px solid rgba(214, 143, 62, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: var(--accent-strong);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+        }
+
+        .header-name {
+            text-align: left;
+        }
+
+        .header-quantity {
+            width: 80px;
+            text-align: center;
+        }
+
+        .header-weight {
+            width: 80px;
+            text-align: center;
+        }
+
+        .header-action {
+            width: 80px;
+            text-align: center;
+        }
+
+        .inventory-item {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 12px;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(25, 32, 50, 0.8), rgba(35, 42, 60, 0.9));
+            border: 1px solid rgba(129, 148, 197, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.25s ease;
+        }
+
+        .inventory-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(214, 143, 62, 0.12), rgba(109, 157, 197, 0.12));
+            border-radius: 8px;
+            border: 1px solid rgba(214, 143, 62, 0.25);
+            color: var(--text-primary);
+        }
+
+        .summary-text,
+        .summary-count {
+            font-size: 0.95em;
+            letter-spacing: 0.03em;
+        }
+
+        .inventory-item:hover {
+            border-color: rgba(214, 143, 62, 0.5);
+            box-shadow: 0 4px 15px rgba(214, 143, 62, 0.15);
+        }
+
+        .inventory-item-name {
+            flex: 1;
+        }
+
+        .inventory-item-name input {
+            width: 100%;
+            background: rgba(8, 12, 24, 0.7);
+            border: 1px solid rgba(129, 148, 197, 0.4);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-size: 0.95em;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .inventory-item-name input:focus {
+            outline: none;
+            border-color: rgba(214, 143, 62, 0.75);
+            box-shadow: 0 0 12px rgba(214, 143, 62, 0.25);
+        }
+
+        .inventory-item-quantity {
+            width: 80px;
+        }
+
+        .inventory-item-quantity input {
+            width: 100%;
+            background: rgba(8, 12, 24, 0.7);
+            border: 1px solid rgba(129, 148, 197, 0.4);
+            border-radius: 6px;
+            padding: 8px;
+            color: var(--text-primary);
+            font-size: 0.95em;
+            text-align: center;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .inventory-item-quantity input:focus {
+            outline: none;
+            border-color: rgba(214, 143, 62, 0.75);
+            box-shadow: 0 0 12px rgba(214, 143, 62, 0.25);
+        }
+
+        .inventory-item-weight {
+            width: 80px;
+        }
+
+        .inventory-item-weight input {
+            width: 100%;
+            background: rgba(8, 12, 24, 0.7);
+            border: 1px solid rgba(129, 148, 197, 0.4);
+            border-radius: 6px;
+            padding: 8px;
+            color: var(--text-primary);
+            font-size: 0.95em;
+            text-align: center;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .inventory-item-weight input:focus {
+            outline: none;
+            border-color: rgba(214, 143, 62, 0.75);
+            box-shadow: 0 0 12px rgba(214, 143, 62, 0.25);
+        }
+
+        .btn-remove-item {
+            background: linear-gradient(130deg, rgba(220, 53, 69, 0.9), rgba(183, 28, 28, 0.8));
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.25);
+        }
+
+        .btn-remove-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.35);
+        }
+
+        .inventory-tips {
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: rgba(109, 157, 197, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid rgba(109, 157, 197, 0.6);
+        }
+
+        .inventory-instructions {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(214, 143, 62, 0.08);
+            border-radius: 10px;
+            border: 1px solid rgba(214, 143, 62, 0.2);
+        }
+
+        .instruction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(214, 143, 62, 0.15);
+        }
+
+        .instruction-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .instruction-label {
+            font-weight: 600;
+            color: var(--accent-strong);
+            min-width: 80px;
+            font-size: 0.95em;
+        }
+
+        .instruction-desc {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            flex: 1;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .tip-text {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            margin: 0;
+            letter-spacing: 0.03em;
+        }
+
+        .inventory-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-style: italic;
+            background: rgba(25, 32, 50, 0.5);
+            border-radius: 8px;
+            border: 2px dashed rgba(129, 148, 197, 0.3);
+        }
+
         @media (max-width: 1024px) {
             .character-editor {
                 grid-template-columns: 1fr;
@@ -776,6 +1049,39 @@
                     </div>
                 </div>
 
+                <!-- 物品栏区域 -->
+                <div class="section full-width">
+                    <h3>物品栏</h3>
+                    <div class="inventory-section">
+                        <div class="inventory-header">
+                            <h4>随身携带物品</h4>
+                            <button type="button" class="btn-add-item" onclick="addInventoryItem()">
+                                <span class="add-icon">+</span> 添加物品
+                            </button>
+                        </div>
+                        <div class="inventory-instructions">
+                            <div class="instruction-item">
+                                <span class="instruction-label">物品名称</span>
+                                <span class="instruction-desc">输入物品的名称（如：手枪、医疗包、笔记本等）</span>
+                            </div>
+                            <div class="instruction-item">
+                                <span class="instruction-label">数量</span>
+                                <span class="instruction-desc">该物品的数量（如：子弹x30发、绷带x5卷）</span>
+                            </div>
+                            <div class="instruction-item">
+                                <span class="instruction-label">重量(kg)</span>
+                                <span class="instruction-desc">单个物品的重量，用于计算负重（如：0.5kg、2.3kg）</span>
+                            </div>
+                        </div>
+                        <div id="inventoryList" class="inventory-list">
+                            <!-- 物品列表将由JavaScript动态生成 -->
+                        </div>
+                        <div class="inventory-tips">
+                            <p class="tip-text">💡 提示: 可以添加角色携带的武器、工具、个人物品等。总重量会自动计算显示。</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 背景故事区域 -->
                 <div class="section full-width">
                     <h3>背景故事</h3>
@@ -798,7 +1104,7 @@
             "有志青年": {
                 attributes: { physique: 30, agility: 50, intellect: 80, resolve: 50 },
                 presetSkills: { "阅历": 60, "法语": 60 },
-                specialties: ["神秘学", "阅历", "法语"],
+                specialties: ["阅历", "法语"],
                 background: {
                     "你的父亲": ["是一位外交官", "是贵族", "正写着他有关比较神话学的巨著", "对生活充满失望"],
                     "你的母亲": ["因病不能自理", "是小有名气的优秀画家", "一直想让你多吃点", "后悔她嫁了你的父亲"],
@@ -832,7 +1138,7 @@
             "舞者": {
                 attributes: { physique: 70, agility: 80, intellect: 30, resolve: 30 },
                 presetSkills: { "融入": 60, "演技": 60 },
-                specialties: ["诱惑", "融入", "演技"],
+                specialties: ["融入", "演技"],
                 background: {
                     "你的父亲": ["是马戏团长", "是画家", "是革命分子", "破产了"],
                     "你的母亲": ["是马戏团的杂技演员", "是演员", "鸦片上瘾了", "在教堂的小册子里被用作警示性例子"],
@@ -849,7 +1155,7 @@
             "警探": {
                 attributes: { physique: 60, agility: 50, intellect: 70, resolve: 30 },
                 presetSkills: { "斗殴": 60, "射击": 60, "追踪": 60 },
-                specialties: ["融入", "射击", "追踪"],
+                specialties: ["斗殴", "射击", "追踪"],
                 background: {
                     "你的父亲": ["是蔬果贩", "是机修工", "喜欢写信给本地报社", "不可动摇"],
                     "你的母亲": ["是贵族夫人的侍女", "因病不能自理", "完全是个负担", "不可阻拦"],
@@ -889,7 +1195,7 @@
                     "你的母亲": ["是占卜师", "是贵族", "一贫如洗", "死了"],
                     "童年时代的你": ["开心", "孤单", "受幻觉侵扰", "经常发怪烧", "是学校里最受欢迎的孩子,毋庸置疑"],
                     "评论家说你": ["是伦敦最伟大的灵媒", "更适合在小孩的生日派对上出场", "挺可疑的", "板上钉钉的骗子"],
-                    "表演之后,你": ["与热爱你的粉丝见面", "径直去票房拿报酬", "感谢你的\"灵魂向导\",以防万一"],
+                    "表演之后,你": ["与热爱你的粉丝见面", "径直去票房拿报酬", "感谢你的\"灵魂向导\", 以防万一"],
                     "你最亲密的朋友是": ["赫伯特·布朗罗,你忠实的助手", "先知米瑞亚", "一套由滑轮、蜡烛和镜子组成的复杂系统", "一只鬼,大概"],
                     "你最怕": ["空空的剧院", "唤起你无法镇压的东西", "被过于仔细地检查"],
                     "你现在": ["想着要退休", "提供个人咨询服务", "被鬼附身了"],
@@ -943,11 +1249,13 @@
         let currentArchetype = null;
         let skillValues = {};
         let backgroundChoices = {};
+        let inventoryItems = [];
 
         // 初始化应用
         function initApp() {
             renderArchetypes();
             initializeSkills();
+            initializeInventory();
         }
 
         // 渲染原型选择
@@ -1003,6 +1311,9 @@
                     input.value = archetype.presetSkills[skill];
                 }
             });
+
+            // 重置物品栏
+            initializeInventory();
 
             // 渲染技能区域
             renderSkills();
@@ -1166,7 +1477,8 @@
                     occult: {}
                 },
                 specialties: archetypes[currentArchetype].specialties,
-                background: backgroundChoices
+                background: backgroundChoices,
+                inventory: inventoryItems.filter(item => item.name.trim() !== '')
             };
 
             // 整理技能数据
@@ -1190,6 +1502,133 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        // 初始化物品栏
+        function initializeInventory() {
+            inventoryItems = [];
+            renderInventory();
+        }
+
+        // 添加物品
+        function addInventoryItem() {
+            const newItem = {
+                id: Date.now() + Math.random(),
+                name: '',
+                quantity: 1,
+                weight: 0
+            };
+            inventoryItems.push(newItem);
+            renderInventory();
+            
+            // 聚焦到新添加的物品名称输入框
+            setTimeout(() => {
+                const nameInput = document.querySelector(`input[data-item-id="${newItem.id}"][data-field="name"]`);
+                if (nameInput) {
+                    nameInput.focus();
+                }
+            }, 100);
+        }
+
+        // 移除物品
+        function removeInventoryItem(itemId) {
+            inventoryItems = inventoryItems.filter(item => item.id !== itemId);
+            renderInventory();
+        }
+
+        // 更新物品属性
+        function updateInventoryItem(itemId, field, value) {
+            const item = inventoryItems.find(item => item.id === itemId);
+            if (item) {
+                if (field === 'quantity' || field === 'weight') {
+                    // 确保数值字段为数字类型
+                    item[field] = parseFloat(value) || 0;
+                } else {
+                    item[field] = value;
+                }
+            }
+        }
+
+        // 渲染物品栏
+        function renderInventory() {
+            const inventoryList = document.getElementById('inventoryList');
+            
+            if (inventoryItems.length === 0) {
+                inventoryList.innerHTML = `
+                    <div class="inventory-empty">
+                        <p>暂无物品，点击上方"添加物品"按钮开始添加</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 添加表头
+            let html = `
+                <div class="inventory-header-row">
+                    <div class="header-name">物品名称</div>
+                    <div class="header-quantity">数量</div>
+                    <div class="header-weight">重量(kg)</div>
+                    <div class="header-action">操作</div>
+                </div>
+            `;
+
+            html += inventoryItems.map(item => `
+                <div class="inventory-item">
+                    <div class="inventory-item-name">
+                        <input 
+                            type="text" 
+                            placeholder="输入物品名称" 
+                            value="${item.name}"
+                            data-item-id="${item.id}"
+                            data-field="name"
+                            oninput="updateInventoryItem(${item.id}, 'name', this.value)"
+                        >
+                    </div>
+                    <div class="inventory-item-quantity">
+                        <input 
+                            type="number" 
+                            placeholder="1" 
+                            value="${item.quantity}"
+                            min="0"
+                            step="1"
+                            data-item-id="${item.id}"
+                            data-field="quantity"
+                            oninput="updateInventoryItem(${item.id}, 'quantity', this.value)"
+                        >
+                    </div>
+                    <div class="inventory-item-weight">
+                        <input 
+                            type="number" 
+                            placeholder="0.0" 
+                            value="${item.weight}"
+                            min="0"
+                            step="0.1"
+                            data-item-id="${item.id}"
+                            data-field="weight"
+                            oninput="updateInventoryItem(${item.id}, 'weight', this.value)"
+                        >
+                    </div>
+                    <button 
+                        type="button" 
+                        class="btn-remove-item" 
+                        onclick="removeInventoryItem(${item.id})"
+                        title="删除物品"
+                    >
+                        删除
+                    </button>
+                </div>
+            `).join('');
+
+            // 计算总重量
+            const totalWeight = inventoryItems.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+            html += `
+                <div class="inventory-summary">
+                    <span class="summary-text">总重量: <strong>${totalWeight.toFixed(1)} kg</strong></span>
+                    <span class="summary-count">物品总数: <strong>${inventoryItems.length}</strong></span>
+                </div>
+            `;
+
+            inventoryList.innerHTML = html;
         }
 
         // 页面加载完成后初始化
